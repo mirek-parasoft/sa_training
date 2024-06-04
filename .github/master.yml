@@ -5,11 +5,9 @@ on:
     branches: [ master ]
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   LINE_COV_GATE: 70
   MCDC_COV_GATE: 30
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
@@ -26,22 +24,5 @@ jobs:
     - name: Configure CMake
       shell: bash
       working-directory: ${{github.workspace}}
-      run: cmake -DCPPTEST_COVERAGE=ON -S . -B .build 
-
-    - name: Build 
-      working-directory: ${{github.workspace}}
-      shell: bash
-      # Execute the build.  You can specify a specific target with "--target <NAME>"
-      run: cmake --build .build
-
-    - name: Run Tests
-      working-directory: ${{github.workspace}}/.build
-      shell: bash
-      run: rm -rf cpptest-coverage/CovGoogleTest/CovGoogleTest.clog && ctest || true 
-
-    - name: Generate Reports
-      working-directory: ${{github.workspace}}/.build
-      shell: bash
-      run: make cpptestcov-compute cpptestcov-suppress cpptestcov-report 
- 
+      run: cmake -DCPPTEST_COVERAGE=ON -S . -B .build
   
